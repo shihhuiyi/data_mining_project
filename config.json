@@ -16,7 +16,8 @@
         "cat_cols":[
             "供公眾否",
             "承造人"
-        ]
+        ],
+        "feature":"feature/feature.csv"
     },
     "training":{
         "split":0.7

@@ -3,6 +3,7 @@ from datetime import date
 import pandas as pd
 import numpy as np
 from core.data_processor import standard,transform
+from sklearn.preprocessing import MinMaxScaler
 
 class DataLoader():
 
@@ -29,9 +30,21 @@ class DataLoader():
             self.df = self.df.drop(index,axis=1)
             self.df = pd.concat([dff,self.df],axis=1)
 
-        i_split = int(len(self.df)*split)
-        self.data_train = self.df.values[:i_split]
-        self.data_test = self.df.values[i_split:]
+        self.i_split = int(len(self.df)*split)
+        self.data_train = self.df.values[:self.i_split]
+        self.data_test = self.df.values[self.i_split:]
+
+    def feature_select(self,cols):
+        self.df = self.df.get(cols)
+        self.data_train = self.df.values[:self.i_split]
+        self.data_test = self.df.values[self.i_split:]
+
+    def standard(self, data):
+        sc = MinMaxScaler()
+        sc.fit_transform(self.data_train[:,:-1])
+        a = sc.transform(data)
+        return a
+
 
         '''
         self.X_train = standard(data=self.data_train[:,:-1])

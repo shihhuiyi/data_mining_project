@@ -8,7 +8,7 @@ def transform(data):
     return [transform_date(i) for i in data]
 
 
-def standard(self,data):
+def standard(data):
     sc = StandardScaler()
     sc.fit_transform(self.data_train[:,:-1])
     data = sc.transform(data)
