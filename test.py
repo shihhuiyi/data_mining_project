@@ -65,3 +65,42 @@ from sklearn.preprocessing import LabelEncoder
 # %%
 a = to_categorical(df["供公眾否"],len(df["供公眾否"]))
 # %%
+from core.data_loader import DataLoader
+import json
+config = json.load(open("config.json","r",encoding="utf-8-sig"))
+data = DataLoader(config["data"]["cols"],config["data"]["cat_cols"],config["training"]["split"])
+# %%
+from featurewiz import featurewiz
+target = ["time"]
+feature = featurewiz(data.df, target, corr_limit=0.70,verbose=2)
+
+# %%
+from core.data_processor import standard
+a = standard(data.data_train[:,:-1])
+# %%
+from sklearn.preprocessing import MinMaxScaler
+import numpy as np
+a = np.arange(12).reshape(-1,4)
+sc = MinMaxScaler()
+sc.fit_transform(a)
+b = np.arange(8).reshape(-1,4)
+c = sc.transform(b)
+# %%
+import pandas as pd
+import numpy as np
+a = np.arange(4)
+# %%
+a = a.sort_values("d")
+# %%
+import pandas as pd
+
+df = pd.read_csv("data/data.csv")
+df = df.describe()
+df.to_csv("describe.csv",encoding="utf_8_sig")
+# %%
+from core.data_loader import DataLoader
+import json
+import pandas as pd
+config = json.load(open("config.json","r",encoding="utf-8-sig"))
+data = DataLoader(config["data"]["cols"],config["data"]["cat_cols"],config["training"]["split"])
+# %%
